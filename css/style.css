@@ -1,0 +1,19 @@
+﻿h1 {
+	text-align: center;
+}
+
+.container {
+	text-align: center;
+}
+
+.square {
+	width: 120px;
+    height: 120px;
+    background: #C0C0C0;
+	display: inline-block;
+}
+
+.hidden
+{
+    display: none;
+}
