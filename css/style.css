@@ -1,19 +1,23 @@
 ﻿h1 {
-	text-align: center;
+  text-align: center;
 }
 
 .container {
-	text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .square {
-	width: 120px;
-    height: 120px;
-    background: #C0C0C0;
-	display: inline-block;
+  margin:5px;
+  box-sizing:border-box;
+  min-width:150px;
+  padding:50px 20px;
+  background: #C0C0C0;
 }
 
 .hidden
 {
-    display: none;
+  display: none;
 }
