@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="css/style.css">
-  <title>Test task</title>
+  <title>Find the pair</title>
 </head>
 <body>
 
 <header>
-  <h1>Click on two tiles</h1>
 </header>
 
 <div class="container">
@@ -30,6 +29,18 @@
   <div class="square" id="15"></div>
 </div>
 
+<div class="win-msg" style="display: none;">
+  <div class="overlay"></div>
+    <div class="visible">
+      <h1>You win!</h1>
+      <div class="content">
+        <p>Total rounds: </p>
+      </div>
+      <div class="out-circle">
+        <div class="inner-circle">Play again</div>
+      </div>
+    </div>
+</div>
 
 <script src="js/script.js"></script>
 </body>

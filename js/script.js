@@ -3,43 +3,64 @@
   let colorList = ['green','red','yellow','pink','green','blue','purple','yellow','orange','orange','pink','brown','purple','red','brown','blue'];
   let tileContainer = document.querySelector('.container');
   let tiles = tileContainer.querySelectorAll('.square');
-  let tile1 = -1;
-  
-  var closeTile = function (id, color) {
-    tiles[id].style.background = color;
-    tile1 = -1;
+  let winMsg = document.querySelector('.win-msg');
+  let tile1 = -1, tile2 = -1;
+  let totalRounds = 0;
+  let matchingPair = 0;
+
+  let gameOver = function () {
+    winMsg.removeAttribute('style');
+    winMsg.querySelector('.content p').textContent = 'Total rounds: ' + totalRounds;
+    winMsg.querySelector('.out-circle').addEventListener('click', function () {
+      window.location.reload();
+    })
   };
-  
+
+  let openTile = function (id) {
+    tiles[id].style.background = colorList[id];
+    tiles[id].setAttribute('class', 'square open');
+  };
+
+  let closeTiles = function (color) {
+    tiles[tile1].style.background = color;
+    tiles[tile2].style.background = color;
+    tiles[tile1].setAttribute('class', 'square');
+    tiles[tile2].setAttribute('class', 'square');
+    tile1 = -1;
+    tile2 = -1;
+  };
+
+  let checkPair = function () {
+    totalRounds++;
+    if (colorList[tile1] === colorList[tile2]) {
+      tile1 = -1;
+      tile2 = -1;
+      matchingPair++;
+      if (matchingPair === 8) {
+        gameOver();
+      }
+    } else {
+      setTimeout(closeTiles, 300, '#2F4F4F');
+    }
+  };
+
   function compareRandom(a, b) {
     return Math.random() - 0.5;
-  }
+  };
 
   (function () {
     colorList.sort(compareRandom);
-    tileContainer.addEventListener('click', function (evt){
-      if (evt.target !== evt.currentTarget) {
+    tileContainer.addEventListener('click', function (evt) {
+      if (evt.target !== evt.currentTarget && evt.target.className !== 'square open') {
         if (tile1 < 0) {
           tile1 = evt.target.id;
-          tiles[evt.target.id].style.background = colorList[evt.target.id];
-        } else if (tile1 === evt.target.id){
-          setTimeout(closeTile, 100, tile1, '#C0C0C0');
-        } else if (colorList[tile1] === colorList[evt.target.id]){
-          tiles[evt.target.id].style.background = colorList[evt.target.id];
-          tiles[tile1].setAttribute('class', 'hidden');
-          tiles[evt.target.id].setAttribute('class', 'hidden');
-          tile1 = -1;
-        } else {
-          tiles[evt.target.id].style.background = colorList[evt.target.id];
-          setTimeout(closeTile, 300, tile1, '#C0C0C0');
-          setTimeout(closeTile, 300, evt.target.id, '#C0C0C0');
+          openTile(tile1);
+        } else if (tile2 < 0) {
+          tile2 = evt.target.id;
+          openTile(tile2);
+          checkPair();
         }
       }
     });
   })();
 })();
-
-	
-
-
-
-
